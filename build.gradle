@@ -8,7 +8,7 @@ plugins {
 	id "com.github.johnrengelman.shadow" version "7.1.0" apply false
 }
 
-def default_minecraft_version = "1.16.5"
+def default_minecraft_version = "1.19.2"
 def minecraft_version = rootProject.properties.containsKey("buildVersion") ? rootProject.getProperties().get("buildVersion") : default_minecraft_version
 def minecraft_main_version = minecraft_version.split("\\.")[1] as int
 def patreon_api_key = rootProject.properties.containsKey("patreonApiKey") ? rootProject.getProperties().get("patreonApiKey") : ""
@@ -43,6 +43,11 @@ subprojects {
 		mappings loom.officialMojangMappings()
 		implementation "us.dynmap:dynmap-api:${rootProject.dynmap_version}"
 		implementation name: "BlueMapAPI-2.1.1"
+		implementation name: "Jade-1.19.1-fabric-8.6.0-api"
+		//implementation name: "groovy-json-4.0.2.jar"
+		//implementation 'org.apache.groovy:groovy-json:4.0.2'
+		//implementation 'org.apache.groovy:groovy-json:4.0.2'
+		//implementation 'org.apache.groovy:groovy-all:4.0.2'
 		implementation "xyz.jpenilla:squaremap-api:${rootProject.squaremap_version}"
 		implementation "org.eclipse.jetty:jetty-http:${rootProject.jetty_version}"
 		implementation "org.eclipse.jetty:jetty-io:${rootProject.jetty_version}"

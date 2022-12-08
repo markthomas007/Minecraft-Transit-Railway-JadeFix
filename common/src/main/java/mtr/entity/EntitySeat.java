@@ -13,7 +13,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.Optional;
 import java.util.UUID;
 
-public class EntitySeat extends EntityBase {
+public class EntitySeat extends EntityBase{
 
 	private int seatRefresh;
 	private Player player;

@@ -4,31 +4,39 @@ import mtr.data.Depot;
 import mtr.data.RailwayData;
 import mtr.data.Route;
 import mtr.data.Station;
+import mtr.entity.EntityBase;
+import mtr.entity.EntitySeat;
 import mtr.mappings.BlockEntityMapper;
+import mtr.mappings.BlockMapper;
 import mtr.packet.IPacket;
 import mtr.packet.PacketTrainDataGuiServer;
 import mtr.servlet.Webserver;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.entity.EntityLookup;
+import snownee.jade.api.IWailaClientRegistration;
+import snownee.jade.api.IWailaPlugin;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class MTR implements IPacket {
+public class MTR implements IPacket, IWailaPlugin {
 
 	private static int gameTick = 0;
 
 	public static final String MOD_ID = "mtr";
 
-	public static void init(
+	public static void init (
 			BiConsumer<String, RegistryObject<Item>> registerItem,
 			BiConsumer<String, RegistryObject<Block>> registerBlock,
 			RegisterBlockItem registerBlockItem,
@@ -419,6 +427,12 @@ public class MTR implements IPacket {
 			Webserver.start(minecraftServer.getServerDirectory().toPath().resolve("config").resolve("mtr_webserver_port.txt"));
 		});
 		Registry.registerServerStoppingEvent(minecraftServer -> Webserver.stop());
+	}
+
+	@Override
+	public void registerClient(IWailaClientRegistration registration) {
+		registration.hideTarget(EntityType.FALLING_BLOCK);
+		//registration.hideTarget(new EntityLookup<EntitySeat>().);
 	}
 
 	public static boolean isGameTickInterval(int interval) {
